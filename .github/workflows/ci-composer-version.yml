@@ -1,0 +1,40 @@
+name: CI-composer-version
+
+on: [push]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: intl zip sockets dom
+
+      - uses: php-actions/composer@v6
+        with:
+          php_version: '8.3'
+          php_extensions: intl zip sockets dom
+
+      - uses: browser-actions/setup-geckodriver@latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - run: geckodriver --version
+
+      - uses: nanasess/setup-chromedriver@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - run: chromedriver --version
+
+      - name: run tests
+        env:
+          PANTHER_CHROME_ARGUMENTS: "--disable-dev-shm-usage"
+          PANTHER_CHROME_DRIVER_BINARY: "/usr/bin/chromedriver"
+          PANTHER_NO_SANDBOX: "1"
+          PANTHER_GECKO_DRIVER_BINARY: "/usr/bin/geckodriver"
+          PANTHER_GECKO_ARGUMENTS: "--marionette-port=2828"
+        run: vendor/bin/phpunit --colors=always --configuration=phpunit.xml

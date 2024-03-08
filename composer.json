@@ -1,0 +1,22 @@
+{
+    "require-dev": {
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-sqlite3": "*",
+        "ext-dom": "*",
+        "phpunit/phpunit": "^10.5",
+        "symfony/dom-crawler": "^7.0",
+        "symfony/panther": "^2.1",
+        "symfony/css-selector": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mvc\\": "mvc/",
+            "App\\": "app/",
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "altorouter/altorouter": "^2.0"
+    }
+}
