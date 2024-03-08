@@ -4,7 +4,7 @@ namespace Mvc\Utils;
 
 class Response
 {
-    private string $content = '';
+    private array $views = [];
     private array $headers = [];
     public function __construct()
     {
@@ -12,12 +12,16 @@ class Response
 
     public function getContent(): string
     {
-        return $this->content;
+        ob_start();
+        foreach ($this->views as $view) {
+            include $view;
+        }
+        return ob_get_clean();
     }
 
-    public function addContent(string $content): void
+    public function addView($viewPath): void
     {
-        $this->content .= $content;
+        $this->views[] = $viewPath;
     }
 
     public function setHeader(string $header): void
@@ -50,6 +54,8 @@ class Response
         foreach ($this->headers as $header) {
             header($header);
         }
-        echo $this->content;
+        foreach($this->views as $view) {
+            include $view;
+        }
     }
 }

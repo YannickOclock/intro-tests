@@ -16,9 +16,9 @@
             $response = new Response();
             $response->setHeader('Content-Type: text/html; charset=utf-8');
             $response->setStatusCode(200);
-            $response->addContent(file_get_contents(__DIR__ . "/../Views/parts/header.tpl.php"));
-            $response->addContent(file_get_contents(__DIR__ . "/../Views/pages/$viewName.tpl.php"));
-            $response->addContent(file_get_contents(__DIR__ . "/../Views/parts/footer.tpl.php"));
+            $response->addView(__DIR__ . "/../Views/parts/header.tpl.php");
+            $response->addView(__DIR__ . "/../Views/pages/$viewName.tpl.php");
+            $response->addView(__DIR__ . "/../Views/parts/footer.tpl.php");
             return $response;
         }
     }

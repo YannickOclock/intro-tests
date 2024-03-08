@@ -27,7 +27,7 @@
         $controller = new $match['target']['controller']();
         $method = $match['target']['method'];
         $response = $controller->$method();
-        echo $response->send();
+        $response->send();
     } else {
         echo "404";
     }
