@@ -3,7 +3,6 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-sqlite3": "*",
-        "ext-dom": "*",
         "phpunit/phpunit": "^10.5",
         "symfony/dom-crawler": "^7.0",
         "symfony/panther": "^2.1",
@@ -17,6 +16,7 @@
         }
     },
     "require": {
+        "ext-dom": "*",
         "altorouter/altorouter": "^2.0"
     }
 }
