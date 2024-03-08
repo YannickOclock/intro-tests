@@ -6,7 +6,6 @@
     use Mvc\Controller\HomeController;
     use PHPUnit\Framework\TestCase;
     use Symfony\Component\DomCrawler\Crawler;
-    use Symfony\Component\HttpClient\HttpClient;
 
     class HomeControllerTest extends TestCase {
 

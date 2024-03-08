@@ -26,5 +26,20 @@
             $result = $calculator->addWithRandom($randomGenerator, 2);
             $this->assertEquals(5, $result);
         }
+
+        public function testRandomGenerator()
+        {
+            $randomGenerator = new RandomGenerator();
+            $result = $randomGenerator->randomInt(0, 10);
+            $this->assertIsInt($result);
+        }
+
+        public function testAddRandom()
+        {
+            $randomGenerator = new RandomGenerator();
+            $calculator = new Calculator();
+            $result = $calculator->addWithRandom($randomGenerator, 2);
+            $this->assertIsInt($result);
+        }
     }
 
