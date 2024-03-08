@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /var/www/html/perso/intro-tests/app/Classes</title>
+  <title>Dashboard for /var/www/html/perso/intro-tests/mvc/Utils</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../../_css/bootstrap.min.css?v=10.1.12" rel="stylesheet" type="text/css">
   <link href="../../_css/nv.d3.min.css?v=10.1.12" rel="stylesheet" type="text/css">
@@ -17,8 +17,8 @@
       <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../../index.html">/var/www/html/perso/intro-tests</a></li>
-         <li class="breadcrumb-item"><a href="../index.html">app</a></li>
-         <li class="breadcrumb-item"><a href="index.html">Classes</a></li>
+         <li class="breadcrumb-item"><a href="../index.html">mvc</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Utils</a></li>
          <li class="breadcrumb-item active">(Dashboard)</li>
 
        </ol>
@@ -59,6 +59,7 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="Response.php.html#5">Mvc\Utils\Response</a></td><td class="text-right">66%</td></tr>
 
        </tbody>
       </table>
@@ -75,6 +76,7 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="Response.php.html#5">Mvc\Utils\Response</a></td><td class="text-right">15</td></tr>
 
        </tbody>
       </table>
@@ -112,6 +114,8 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="Response.php.html#28"><abbr title="Mvc\Utils\Response::getHeaders">getHeaders</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Response.php.html#48"><abbr title="Mvc\Utils\Response::send">send</abbr></a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -128,6 +132,7 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="Response.php.html#48"><abbr title="Mvc\Utils\Response::send">send</abbr></a></td><td class="text-right">6</td></tr>
 
        </tbody>
       </table>
@@ -156,7 +161,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,2], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,1,0,0,0,0], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -174,7 +179,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,5], "Method Coverage"))
+      .datum(getCoverageDistributionData([2,0,0,0,0,0,0,0,0,0,0,6], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -224,7 +229,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,1,"<a href=\"Calculator.php.html#5\">App\\Classes\\Calculator<\/a>"],[100,5,"<a href=\"EmailService.php.html#7\">App\\Classes\\EmailService<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[66.66666666666666,11,"<a href=\"Response.php.html#5\">Mvc\\Utils\\Response<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -248,7 +253,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,1,"<a href=\"Calculator.php.html#7\">App\\Classes\\Calculator::add<\/a>"],[100,1,"<a href=\"EmailService.php.html#14\">App\\Classes\\EmailService::__construct<\/a>"],[100,1,"<a href=\"EmailService.php.html#19\">App\\Classes\\EmailService::fromString<\/a>"],[100,1,"<a href=\"EmailService.php.html#23\">App\\Classes\\EmailService::__toString<\/a>"],[100,2,"<a href=\"EmailService.php.html#27\">App\\Classes\\EmailService::_ensureIsValidEmail<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[100,1,"<a href=\"Response.php.html#9\">Mvc\\Utils\\Response::__construct<\/a>"],[100,1,"<a href=\"Response.php.html#13\">Mvc\\Utils\\Response::getContent<\/a>"],[100,1,"<a href=\"Response.php.html#18\">Mvc\\Utils\\Response::addContent<\/a>"],[100,1,"<a href=\"Response.php.html#23\">Mvc\\Utils\\Response::setHeader<\/a>"],[0,1,"<a href=\"Response.php.html#28\">Mvc\\Utils\\Response::getHeaders<\/a>"],[100,1,"<a href=\"Response.php.html#33\">Mvc\\Utils\\Response::setStatusCode<\/a>"],[100,3,"<a href=\"Response.php.html#38\">Mvc\\Utils\\Response::getStatusCode<\/a>"],[0,2,"<a href=\"Response.php.html#48\">Mvc\\Utils\\Response::send<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);

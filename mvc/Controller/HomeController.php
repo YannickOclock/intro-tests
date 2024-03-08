@@ -1,18 +1,24 @@
 <?php
     namespace Mvc\Controller;
 
+    use Mvc\Utils\Response;
+
     class HomeController
     {
-        public function index(): void
+        public function index(): Response
         {
-            $this->show('home');
+            return $this->show('home');
         }
 
-        public function show($viewName, $data = []): void
+        public function show($viewName, $data = []): Response
         {
             extract($data);
-            require_once __DIR__ . "/../Views/parts/header.tpl.php";
-            require_once __DIR__ . "/../Views/pages/$viewName.tpl.php";
-            require_once __DIR__ . "/../Views/parts/footer.tpl.php";
+            $response = new Response();
+            $response->setHeader('Content-Type: text/html; charset=utf-8');
+            $response->setStatusCode(200);
+            $response->addContent(file_get_contents(__DIR__ . "/../Views/parts/header.tpl.php"));
+            $response->addContent(file_get_contents(__DIR__ . "/../Views/pages/$viewName.tpl.php"));
+            $response->addContent(file_get_contents(__DIR__ . "/../Views/parts/footer.tpl.php"));
+            return $response;
         }
     }

@@ -5,7 +5,6 @@
     use DOMDocument;
     use Mvc\Controller\HomeController;
     use PHPUnit\Framework\TestCase;
-    use Symfony\Component\BrowserKit\HttpBrowser;
     use Symfony\Component\DomCrawler\Crawler;
     use Symfony\Component\HttpClient\HttpClient;
 
@@ -16,9 +15,16 @@
         }
         public function testIndex(): void
         {
-            $httpClient = HttpClient::create();
-            $browser = new HttpBrowser($httpClient);
-            $crawler = $browser->request('GET', '/');
-            $this->assertRegExp('/Page d\'accueil/', $crawler->filter('h1')->text());
+            $controller = new HomeController();
+            $html = $controller->index();
+
+            // Est-ce que le document HTML contient un titre h1 ? (on utilise une expression régulière)
+            $htmlObject = new DOMDocument();
+            $htmlObject->loadHTML($html->getContent());
+            $htmlCrawler = new Crawler($htmlObject);
+
+            $this->assertEquals(200, $html->getStatusCode());
+            $this->assertEquals(1, $htmlCrawler->filter('h1')->count());
+            $this->assertRegExp('/Page d\'accueil/', $htmlCrawler->filter('h1')->text());
         }
     }
