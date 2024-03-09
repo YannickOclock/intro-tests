@@ -17,6 +17,7 @@
     },
     "require": {
         "ext-dom": "*",
-        "altorouter/altorouter": "^2.0"
+        "altorouter/altorouter": "^2.0",
+        "ext-pdo": "*"
     }
 }

@@ -6,6 +6,7 @@
 
     use App\Classes\Calculator;
     use Mvc\Controller\HomeController;
+    use Mvc\Models\PostModel;
 
     // Test de la classe Calculator (en direct)
 
@@ -22,11 +23,23 @@
         'method' => 'index',
         'controller' => HomeController::class
     ]);
+    $altorouter->map('GET', '/posts', [
+        'method' => 'showPosts',
+        'controller' => HomeController::class
+    ]);
     $match = $altorouter->match();
     if ($match) {
-        $controller = new $match['target']['controller']();
+        $controllerName = $match['target']['controller'];
+        $controller = new $controllerName();
         $method = $match['target']['method'];
-        $response = $controller->$method();
+
+        // PLUS TARD, CELA SERA GERE AUTOMATIQUEMENT PAR LE CONTENEUR DE DEPENDANCES
+        $arguments = $match['params'];
+        if($controllerName === HomeController::class && $method === 'showPosts') {
+            $arguments[] = new PostModel();
+        }
+
+        $response = $controller->$method(...$arguments);
         $response->send();
     } else {
         echo "404";

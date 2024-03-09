@@ -6,6 +6,7 @@ class Response
 {
     private array $views = [];
     private array $headers = [];
+    private array $data = [];
     public function __construct()
     {
     }
@@ -13,6 +14,7 @@ class Response
     public function getContent(): string
     {
         ob_start();
+        extract($this->data, EXTR_SKIP);
         foreach ($this->views as $view) {
             include $view;
         }
@@ -22,6 +24,11 @@ class Response
     public function addView($viewPath): void
     {
         $this->views[] = $viewPath;
+    }
+
+    public function addData(array $data): void
+    {
+        $this->data = array_merge($this->data, $data);
     }
 
     public function setHeader(string $header): void
@@ -54,6 +61,7 @@ class Response
         foreach ($this->headers as $header) {
             header($header);
         }
+        extract($this->data, EXTR_SKIP);
         foreach($this->views as $view) {
             include $view;
         }

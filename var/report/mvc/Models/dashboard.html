@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /var/www/html/perso/intro-tests/mvc/Views</title>
+  <title>Dashboard for /var/www/html/perso/intro-tests/mvc/Models</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../../_css/bootstrap.min.css?v=10.1.12" rel="stylesheet" type="text/css">
   <link href="../../_css/nv.d3.min.css?v=10.1.12" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../../index.html">/var/www/html/perso/intro-tests</a></li>
          <li class="breadcrumb-item"><a href="../index.html">mvc</a></li>
-         <li class="breadcrumb-item"><a href="index.html">Views</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Models</a></li>
          <li class="breadcrumb-item active">(Dashboard)</li>
 
        </ol>
@@ -59,6 +59,7 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="PostModel.php.html#7">Mvc\Models\PostModel</a></td><td class="text-right">65%</td></tr>
 
        </tbody>
       </table>
@@ -112,6 +113,9 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="PostModel.php.html#19"><abbr title="Mvc\Models\PostModel::findAll">findAll</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PostModel.php.html#51"><abbr title="Mvc\Models\PostModel::setId">setId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PostModel.php.html#57"><abbr title="Mvc\Models\PostModel::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
 
        </tbody>
       </table>
@@ -156,7 +160,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,1,0,0,0,0], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -174,7 +178,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
+      .datum(getCoverageDistributionData([3,0,0,0,0,0,0,0,0,0,0,9], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -224,7 +228,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([], 'Class Complexity'))
+      .datum(getComplexityData([[65,12,"<a href=\"PostModel.php.html#7\">Mvc\\Models\\PostModel<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -248,7 +252,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([], 'Method Complexity'))
+      .datum(getComplexityData([[100,1,"<a href=\"PostModel.php.html#15\">Mvc\\Models\\PostModel::__construct<\/a>"],[0,1,"<a href=\"PostModel.php.html#19\">Mvc\\Models\\PostModel::findAll<\/a>"],[100,1,"<a href=\"PostModel.php.html#27\">Mvc\\Models\\PostModel::setTitle<\/a>"],[100,1,"<a href=\"PostModel.php.html#33\">Mvc\\Models\\PostModel::setContent<\/a>"],[100,1,"<a href=\"PostModel.php.html#39\">Mvc\\Models\\PostModel::setAuthor<\/a>"],[100,1,"<a href=\"PostModel.php.html#45\">Mvc\\Models\\PostModel::setDate<\/a>"],[0,1,"<a href=\"PostModel.php.html#51\">Mvc\\Models\\PostModel::setId<\/a>"],[0,1,"<a href=\"PostModel.php.html#57\">Mvc\\Models\\PostModel::getId<\/a>"],[100,1,"<a href=\"PostModel.php.html#62\">Mvc\\Models\\PostModel::getTitle<\/a>"],[100,1,"<a href=\"PostModel.php.html#67\">Mvc\\Models\\PostModel::getContent<\/a>"],[100,1,"<a href=\"PostModel.php.html#72\">Mvc\\Models\\PostModel::getAuthor<\/a>"],[100,1,"<a href=\"PostModel.php.html#77\">Mvc\\Models\\PostModel::getDate<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);
