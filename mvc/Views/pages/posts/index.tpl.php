@@ -1,5 +1,3 @@
-<?php var_dump(get_defined_vars()); ?>
-
 <?php if (isset($posts)):
     foreach ($posts as $post): ?>
         <article>
