@@ -4,17 +4,19 @@
 
     require_once __DIR__ . '/../vendor/autoload.php';
 
-    use App\Classes\Calculator;
+    use DI\ContainerBuilder;
     use Mvc\Controller\HomeController;
-    use Mvc\Models\PostModel;
 
-    // Test de la classe Calculator (en direct)
+    $container = null;
 
-    //$calculator = new Calculator();
-    //$resultat = $calculator->add(2, 3);
-    //echo "<h1>Un exemple d'utilisation de la classe</h1>";
-    //echo "<p>2 + 3 = $resultat</p>";
-
+    // Création du container
+    $containerBuilder = new ContainerBuilder();
+    $containerBuilder->addDefinitions(__DIR__ . '/config.php');
+    try {
+        $container = $containerBuilder->build();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
 
     // Instanciation d'un mini routeur
 
@@ -30,16 +32,16 @@
     $match = $altorouter->match();
     if ($match) {
         $controllerName = $match['target']['controller'];
-        $controller = new $controllerName();
         $method = $match['target']['method'];
 
-        // PLUS TARD, CELA SERA GERE AUTOMATIQUEMENT PAR LE CONTENEUR DE DEPENDANCES
-        $arguments = $match['params'];
-        if($controllerName === HomeController::class && $method === 'showPosts') {
-            $arguments[] = new PostModel();
-        }
+        // Transformation du nom de la classe et la méthode en callable
+        $controller = [$controllerName, $method];
 
-        $response = $controller->$method(...$arguments);
+        $arguments = $match['params'];
+
+        // Le container appelle maintenant le controller avec les arguments
+        $response = $container->call($controller, $arguments);
+
         $response->send();
     } else {
         echo "404";
