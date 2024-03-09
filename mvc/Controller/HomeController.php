@@ -44,6 +44,12 @@
             ]);
         }
 
+        public function showPostsAsync(PostModel $postModel): HtmlResponse
+        {
+            // Les posts seront affichés via JavaScript
+            return $this->show('posts/async');
+        }
+
         public function show($viewName, $data = []): HtmlResponse
         {
             $response = new HtmlResponse();

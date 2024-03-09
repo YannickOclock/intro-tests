@@ -29,6 +29,11 @@
         'method' => 'showPosts',
         'controller' => HomeController::class
     ]);
+    // show posts with async await fetch
+    $altorouter->map('GET', '/posts-async', [
+        'method' => 'showPostsAsync',
+        'controller' => HomeController::class
+    ]);
     $altorouter->map('GET', '/api/posts', [
         'method' => 'showApiPosts',
         'controller' => HomeController::class
