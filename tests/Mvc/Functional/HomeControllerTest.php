@@ -37,9 +37,9 @@
             // Creation d'un mock de PostModel
             $postModel = $this->createMock(PostModel::class);
             $postModel->method('findAll')->willReturn([
-                (new PostModel())->setTitle('Titre 1')->setContent('Contenu 1')->setAuthor('Auteur 1')->setDate('2021-01-01'),
-                (new PostModel())->setTitle('Titre 2')->setContent('Contenu 2')->setAuthor('Auteur 2')->setDate('2021-01-02'),
-                (new PostModel())->setTitle('Titre 3')->setContent('Contenu 3')->setAuthor('Auteur 3')->setDate('2021-01-03')
+                (new PostModel())->setId(1)->setTitle('Titre 1')->setContent('Contenu 1')->setAuthor('Auteur 1')->setDate('2021-01-01'),
+                (new PostModel())->setId(2)->setTitle('Titre 2')->setContent('Contenu 2')->setAuthor('Auteur 2')->setDate('2021-01-02'),
+                (new PostModel())->setId(3)->setTitle('Titre 3')->setContent('Contenu 3')->setAuthor('Auteur 3')->setDate('2021-01-03')
             ]);
 
             // Test du controller avec le mock

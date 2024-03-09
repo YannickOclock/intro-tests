@@ -2,7 +2,8 @@
     namespace Mvc\Controller;
 
     use Mvc\Models\PostModel;
-    use Mvc\Utils\Response;
+    use Mvc\Utils\JsonResponse;
+    use Mvc\Utils\HtmlResponse;
 
     readonly class HomeController
     {
@@ -10,12 +11,12 @@
         {
         }
 
-        public function index(): Response
+        public function index(): HtmlResponse
         {
             return $this->show('home');
         }
 
-        public function showPosts(PostModel $postModel): Response
+        public function showPosts(PostModel $postModel): HtmlResponse
         {
             return $this->show('posts/index',
                 [
@@ -24,10 +25,29 @@
             );
         }
 
-        public function show($viewName, $data = []): Response
+        public function showApiPosts(PostModel $postModel): JsonResponse
         {
-            $response = new Response();
-            $response->setHeader('Content-Type: text/html; charset=utf-8');
+            // Rechercher tous les posts et transformer les posts en tableau
+            // Plus tard, on pourra utiliser une classe de transformation (serializer)
+            $jsonPosts = array_map(function($post) {
+                return [
+                    'id' => $post->getId(),
+                    'title' => $post->getTitle(),
+                    'content' => $post->getContent(),
+                    'author' => $post->getAuthor(),
+                    'date' => $post->getDate()
+                ];
+            }, $postModel->findAll());
+
+            return new JsonResponse([
+                'posts' => $jsonPosts
+            ]);
+        }
+
+        public function show($viewName, $data = []): HtmlResponse
+        {
+            $response = new HtmlResponse();
+            $response->addHeader('Content-Type: text/html; charset=utf-8');
             $response->setStatusCode(200);
             $response->addData($data);
             $response->addView(__DIR__ . "/../Views/parts/header.tpl.php");

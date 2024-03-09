@@ -29,6 +29,10 @@
         'method' => 'showPosts',
         'controller' => HomeController::class
     ]);
+    $altorouter->map('GET', '/api/posts', [
+        'method' => 'showApiPosts',
+        'controller' => HomeController::class
+    ]);
     $match = $altorouter->match();
     if ($match) {
         $controllerName = $match['target']['controller'];
