@@ -17,7 +17,6 @@
         }
 
         public function runMigrations() {
-            dump($_ENV);
             $appMigration = new Mvc\Fixtures\AppMigrations();
             $appMigration->migrate();
             echo "Migrations done\n";
