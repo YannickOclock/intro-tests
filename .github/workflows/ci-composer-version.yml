@@ -41,6 +41,11 @@ jobs:
 
       - name: Load migrations
         run: php command.php migrate
+        env:
+          DB_TEST_HOST: '127.0.0.1'
+          DB_TEST_USERNAME: 'user'
+          DB_TEST_PASSWORD: 'pass'
+          DB_TEST_NAME: 'test'
 
       - name: run tests
         env:
