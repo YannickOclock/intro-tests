@@ -6,6 +6,7 @@
 
     use DI\ContainerBuilder;
     use Mvc\Controller\HomeController;
+    use Symfony\Component\Dotenv\Dotenv;
 
     $container = null;
 
@@ -17,6 +18,10 @@
     } catch (Exception $e) {
         echo $e->getMessage();
     }
+
+    // Chargement des variables d'environnement
+    $dotenv = new Dotenv();
+    $dotenv->load(__DIR__ . '/../.env');
 
     // Instanciation d'un mini routeur
 

@@ -9,8 +9,17 @@
 
         public function __construct()
         {
-            $ini_file = parse_ini_file(__DIR__ . '/../config.ini');
-            $this->pdo = new PDO('mysql:host='. $ini_file['dbhost'] .'; dbname=' . $ini_file['dbname'], $ini_file['dbusername'], $ini_file['dbpassword']);
+            if($_ENV['APP_ENV'] === 'testing') {
+                $this->pdo = new PDO('mysql:host=' . $_ENV['DB_TEST_HOST'] . '; dbname=' . $_ENV['DB_TEST_NAME'],
+                    $_ENV['DB_TEST_USERNAME'],
+                    $_ENV['DB_TEST_PASSWORD']
+                );
+            } else {
+                $this->pdo = new PDO('mysql:host=' . $_ENV['DB_HOST'] . '; dbname=' . $_ENV['DB_NAME'],
+                    $_ENV['DB_USERNAME'],
+                    $_ENV['DB_PASSWORD']
+                );
+            }
         }
 
         public static function getPdo(): PDO

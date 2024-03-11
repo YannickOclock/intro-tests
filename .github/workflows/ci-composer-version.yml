@@ -15,6 +15,15 @@ jobs:
           php-version: '8.3'
           extensions: intl zip sockets dom
 
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
+          collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
+          mysql version: '8.0' # Optional, default value is "latest". The version of the MySQL
+          mysql database: ${{ secrets.DB_TEST_NAME ?? 'test' }}
+          mysql user: ${{ secrets.DB_TEST_USER ?? 'user' }}
+          mysql password: ${{ secrets.DB_TEST_PASSWORD ?? 'pass' }}
+
       - uses: php-actions/composer@v6
         with:
           php_version: '8.3'
@@ -37,4 +46,8 @@ jobs:
           PANTHER_NO_SANDBOX: "1"
           PANTHER_GECKO_DRIVER_BINARY: "/usr/bin/geckodriver"
           PANTHER_GECKO_ARGUMENTS: "--marionette-port=2828"
+          DB_TEST_HOST: ${{ secrets.DB_TEST_HOST ?? 'localhost' }}
+          DB_TEST_USERNAME: ${{ secrets.DB_TEST_USERNAME ? 'user' }}
+          DB_TEST_PASSWORD: ${{ secrets.DB_TEST_PASSWORD ? 'pass' }}
+          DB_TEST_NAME: ${{ secrets.DB_TEST_NAME ? 'test' }}
         run: vendor/bin/phpunit --colors=always --configuration=phpunit.xml

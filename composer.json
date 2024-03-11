@@ -19,6 +19,8 @@
         "ext-dom": "*",
         "altorouter/altorouter": "^2.0",
         "ext-pdo": "*",
-        "php-di/php-di": "^7.0"
+        "php-di/php-di": "^7.0",
+        "symfony/dotenv": "^7.0",
+        "symfony/var-dumper": "^7.0"
     }
 }
