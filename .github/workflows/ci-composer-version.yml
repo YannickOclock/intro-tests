@@ -46,7 +46,7 @@ jobs:
           PANTHER_NO_SANDBOX: "1"
           PANTHER_GECKO_DRIVER_BINARY: "/usr/bin/geckodriver"
           PANTHER_GECKO_ARGUMENTS: "--marionette-port=2828"
-          DB_TEST_HOST: 'localhost'
+          DB_TEST_HOST: '127.0.0.1'
           DB_TEST_USERNAME: 'user'
           DB_TEST_PASSWORD: 'pass'
           DB_TEST_NAME: 'test'
