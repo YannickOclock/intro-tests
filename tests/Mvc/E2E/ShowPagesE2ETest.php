@@ -2,10 +2,6 @@
     namespace Tests\Mvc\E2E;
 
     use Mvc\Fixtures\AppFixtures;
-    use Mvc\Fixtures\AppMigrations;
-    use Mvc\Utils\Database;
-    use PDO;
-    use Symfony\Component\Dotenv\Dotenv;
     use Symfony\Component\Panther\PantherTestCase;
 
     class ShowPagesE2ETest extends PantherTestCase
@@ -18,12 +14,6 @@
             // load fixtures
             $this->fixtures = new AppFixtures();
             $this->fixtures->load();
-
-            $pdo = Database::getPdo();
-            // dump data
-
-            $posts = $pdo->query('SELECT * FROM posts')->fetchAll(PDO::FETCH_ASSOC);
-            var_dump($posts);
         }
 
         public function tearDown(): void
