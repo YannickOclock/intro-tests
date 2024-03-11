@@ -16,6 +16,20 @@
         {
         }
 
+        public function getClass(): string
+        {
+            return 'posts';
+        }
+        public function getProperties(): array
+        {
+            return [
+                'title' => $this->title,
+                'content' => $this->content,
+                'author' => $this->author,
+                'date' => $this->date
+            ];
+        }
+
         public function findAll(): array
         {
             $pdo = Database::getPdo();

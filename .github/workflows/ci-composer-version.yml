@@ -39,6 +39,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - run: chromedriver --version
 
+      - name: Load migrations
+        run: php commands.php migrate
+
       - name: run tests
         env:
           PANTHER_CHROME_ARGUMENTS: "--disable-dev-shm-usage"

@@ -1,0 +1,11 @@
+Mvc\Models\PostModel:
+  post_1:
+    title: "Post 1"
+    content: "This is the body of post 1"
+    author: "<firstName()> <lastName()>"
+    date: "2015-01-01"
+  post_{2..5}:
+    title: "Post <current()>"
+    content: "This is the body of post <current()>"
+    author: "<firstName()> <lastName()>"
+    date: "2015-01-01"
