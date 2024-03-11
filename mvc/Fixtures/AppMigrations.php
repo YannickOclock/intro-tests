@@ -11,8 +11,8 @@
             // On charge les variables d'environnement (pour les tests sur la machine locale)
             // Pour le Github actions, les variables seront définies dans le contexte d'exécution
             $dotenv = new Dotenv();
-            if(file_exists(__DIR__ . '/../../../.env')) {
-                $dotenv->load(__DIR__ . '/../../../.env');
+            if(file_exists(__DIR__ . '/../../.env')) {
+                $dotenv->load(__DIR__ . '/../../.env');
             }
         }
 

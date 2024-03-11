@@ -18,6 +18,12 @@
             // load fixtures
             $this->fixtures = new AppFixtures();
             $this->fixtures->load();
+
+            $pdo = Database::getPdo();
+            // dump data
+
+            $posts = $pdo->query('SELECT * FROM posts')->fetchAll(PDO::FETCH_ASSOC);
+            var_dump($posts);
         }
 
         public function tearDown(): void
