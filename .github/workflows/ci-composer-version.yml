@@ -40,7 +40,7 @@ jobs:
       - run: chromedriver --version
 
       - name: Load migrations
-        run: php commands.php migrate
+        run: php command.php migrate
 
       - name: run tests
         env:
