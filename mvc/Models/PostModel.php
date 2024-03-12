@@ -43,13 +43,20 @@
          */
         public function save(): int
         {
+            if(empty($this->title) || empty($this->content) || empty($this->author) || empty($this->date)) {
+                throw new \Exception('Tous les champs sont obligatoires');
+            }
+
             try {
                 $pdo = Database::getPdo();
-                $properties = $this->getProperties();
-                $columns = array_keys($properties);
-                $sql = 'INSERT INTO ' . $this->getClass() . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
+                $sql = 'INSERT INTO ' . $this->getClass() . '(`title`, `content`, `author`, `date`) VALUES (:title, :content, :author, :date)';
                 $statement = $pdo->prepare($sql);
-                $statement->execute($properties);
+                $statement->execute([
+                    'title' => $this->title,
+                    'content' => $this->content,
+                    'author' => $this->author,
+                    'date' => $this->date
+                ]);
             } catch (\Exception $e) {
                 throw new \Exception('Erreur lors de l\'insertion d\'un post : ' . $e->getMessage());
             }

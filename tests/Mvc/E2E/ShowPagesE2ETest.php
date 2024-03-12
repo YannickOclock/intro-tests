@@ -56,4 +56,26 @@
             $posts = $client->getCrawler()->filter('article');
             $this->assertCount(5, $posts);
         }
+
+        public function testShowAndSubmitAddFormPage()
+        {
+            $client = static::createPantherClient();
+            $client->request('GET', '/posts/add');
+            $client->waitFor('form', 30);
+
+            $client->submitForm('Ajouter', [
+                'title' => 'Titre de test',
+                'content' => 'Contenu de test',
+                'author' => 'Auteur de test'
+            ]);
+
+            $client->waitFor('article', 30);
+
+            $posts = $client->getCrawler()->filter('article');
+
+            // Vérification du flash message (session)
+            $flashMessage = $client->getCrawler()->filter('.alert-success');
+            $this->assertCount(1, $flashMessage);
+            $this->assertCount(6, $posts);
+        }
     }

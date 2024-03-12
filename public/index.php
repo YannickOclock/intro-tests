@@ -6,9 +6,11 @@
 
     use DI\ContainerBuilder;
     use Mvc\Controller\HomeController;
-use Mvc\Controller\PostsApiController;
-use Mvc\Controller\PostsController;
-use Symfony\Component\Dotenv\Dotenv;
+    use Mvc\Controller\PostsApiController;
+    use Mvc\Controller\PostsController;
+    use Symfony\Component\Dotenv\Dotenv;
+
+    session_start();
 
     $container = null;
 
@@ -50,7 +52,7 @@ use Symfony\Component\Dotenv\Dotenv;
         'controller' => PostsController::class
     ]);
     $altorouter->map('POST', '/posts/add', [
-        'method' => 'addPost',
+        'method' => 'submitAddForm',
         'controller' => PostsController::class
     ]);
 

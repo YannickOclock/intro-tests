@@ -22,6 +22,11 @@ class HtmlResponse extends AbstractResponse
         return ob_get_clean();
     }
 
+    public function getFlashMessages(): array
+    {
+        return $_SESSION['flashMessages'] ?? [];
+    }
+
     public function addHtmlContent($htmlContent = ''): void
     {
         $this->htmlContent = $htmlContent;

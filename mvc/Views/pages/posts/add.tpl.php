@@ -2,7 +2,7 @@
 
 <!-- Affiche les erreurs -->
 <?php if (!empty($errorList)) : ?>
-    <div>
+    <div class="alert alert-danger">
         <ul>
             <?php foreach ($errorList as $error) : ?>
                 <li><?= $error ?></li>

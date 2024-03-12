@@ -30,4 +30,34 @@ class PostModelTest extends TestCase
         $posts = $postModel->findAll();
         $this->assertCount(5, $posts);
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function testSave(): void
+    {
+        $postModel = new PostModel();
+        $postModel->setTitle('Titre 6');
+        $postModel->setContent('Contenu 6');
+        $postModel->setAuthor('Auteur 6');
+        $postModel->setDate(date('Y-m-d H:i:s'));
+        $insertedRow = $postModel->save();
+        $this->assertIsInt($insertedRow);
+
+        $posts = $postModel->findAll();
+        $this->assertCount(6, $posts);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testFailedSave(): void
+    {
+        $this->expectException(\Exception::class);
+
+        $postModel = new PostModel();
+        $postModel->setTitle('Titre 6');
+        $postModel->setDate(date('Y-m-d H:i:s'));
+        $postModel->save();
+    }
 }

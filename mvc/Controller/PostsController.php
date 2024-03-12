@@ -26,13 +26,13 @@
             return $this->show('posts/add');
         }
 
-        public function addPost(PostModel $postModel): HtmlResponse
+        public function submitAddForm(): HtmlResponse
         {
             $errorList = [];
 
-            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
-            $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
-            $author = filter_input(INPUT_POST, 'author', FILTER_SANITIZE_STRING);
+            $title = $_POST['title'] ?? '';
+            $content = $_POST['content'] ?? '';
+            $author = $_POST['author'] ?? '';
 
             if (empty($title)) {
                 $errorList[] = 'Le titre est obligatoire';
@@ -72,7 +72,7 @@
                 return $this->showPosts($postModel);
             }
 
-            return $this->show('posts/add', ['errorList' => $errorList]);
+            return $this->show('posts/add', ['errorList' => $errorList], 400);
         }
 
     }

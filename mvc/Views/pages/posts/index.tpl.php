@@ -1,6 +1,6 @@
 <!-- Affiche les messages flash -->
 <?php if (!empty($flashMessages)) : ?>
-    <div>
+    <div class="alert alert-success">
         <ul>
             <?php foreach ($flashMessages as $flashMessage) : ?>
                 <li><?= $flashMessage ?></li>
