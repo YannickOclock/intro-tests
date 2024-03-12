@@ -26,4 +26,14 @@
             return $this->show('posts/add');
         }
 
+        public function addPost(PostModel $postModel): HtmlResponse
+        {
+            $errorList = [];
+
+
+
+
+            return $this->showPosts($postModel);
+        }
+
     }
