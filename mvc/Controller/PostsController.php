@@ -27,7 +27,7 @@
             return $this->show('posts/add');
         }
 
-        public function submitAddForm(): HtmlResponse
+        public function submitAddForm(): ?HtmlResponse
         {
             $title = $_POST['title'] ?? '';
             $content = $_POST['content'] ?? '';
@@ -50,7 +50,7 @@
 
             if (empty($errorList)) {
                 $this->addFlashMessage('Le post a bien été ajouté');
-                return $this->showPosts($postModel);
+                $this->redirect('posts');
             }
 
 

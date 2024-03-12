@@ -2,6 +2,7 @@
 
 namespace Mvc\Controller;
 
+use JetBrains\PhpStorm\NoReturn;
 use Mvc\Utils\HtmlResponse;
 
 class AbstractViewController
@@ -10,6 +11,13 @@ class AbstractViewController
     {
         $_SESSION['flashMessages'][] = $message;
     }
+
+    #[NoReturn] public function redirect(string $route): void
+    {
+        header("Location: /$route");
+        exit;
+    }
+
     public function show($viewName, $data = [], $statusCode = 200): HtmlResponse
     {
         // On récupère les flash messages

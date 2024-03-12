@@ -119,19 +119,23 @@
 
         public function testSubmitWithSuccess(): void
         {
+            // Mock méthode redirect
+            $controller = $this->getMockBuilder(PostsController::class)
+                ->onlyMethods(['redirect'])
+                ->getMock();
+
             // define the $_POST array
             $_POST['title'] = 'Titre';
             $_POST['content'] = 'Contenu';
             $_POST['author'] = 'Auteur';
 
-            $controller = new PostsController();
-            $html = $controller->submitAddForm();
+            // On dit que la méthode submitAddForm de controller doit appeler la méthode redirect
+            // avec la route posts à la fin de son traitement
+            $controller->expects($this->once())
+                ->method('redirect')
+                ->with('posts');
 
-            $htmlObject = new DOMDocument();
-            $htmlObject->loadHTML($html->getContent(), LIBXML_NOERROR);
-            $htmlCrawler = new Crawler($htmlObject);
-
-            $this->assertEquals(200, $html->getStatusCode());
-            $this->assertEquals(1, $htmlCrawler->filter('div.alert-success')->count());
+            // On appelle la méthode submit pour vérifier cela
+            $controller->submitAddForm();
         }
     }
