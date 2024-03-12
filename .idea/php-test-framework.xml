@@ -2,6 +2,13 @@
 <project version="4">
   <component name="PhpTestFrameworkSettings">
     <test_tools>
+      <tool tool_name="Codeception">
+        <settings>
+          <configurations>
+            <local_configuration executable_path="$PROJECT_DIR$/vendor/codeception/codeception/codecept" />
+          </configurations>
+        </settings>
+      </tool>
       <tool tool_name="Pest">
         <settings>
           <configurations>

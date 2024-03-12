@@ -33,6 +33,16 @@
             $this->assertSame('Page d\'accueil', $h1);
         }
 
+        public function testShowPostsPage()
+        {
+            $client = static::createPantherClient();
+            $client->request('GET', '/posts');
+            $client->waitFor('article', 30);
+
+            $posts = $client->getCrawler()->filter('article');
+            $this->assertCount(5, $posts);
+        }
+
         public function testShowAsyncPostsPage()
         {
             // PROBLEME : le test peut ne pas passer car on utilise des données de la base de PRODUCTION

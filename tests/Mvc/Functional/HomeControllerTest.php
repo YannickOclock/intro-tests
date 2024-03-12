@@ -4,6 +4,7 @@
 
     use DOMDocument;
     use Mvc\Controller\HomeController;
+    use Mvc\Controller\PostsController;
     use Mvc\Models\PostModel;
     use PHPUnit\Framework\MockObject\Exception;
     use PHPUnit\Framework\TestCase;
@@ -43,7 +44,7 @@
             ]);
 
             // Test du controller avec le mock
-            $controller = new HomeController();
+            $controller = new PostsController();
             $html = $controller->showPosts($postModel);
 
             $htmlObject = new DOMDocument();
@@ -52,5 +53,37 @@
 
             $this->assertEquals(200, $html->getStatusCode());
             $this->assertEquals(3, $htmlCrawler->filter('article')->count());
+        }
+
+        public function testShowPostsAsync(): void
+        {
+            $controller = new PostsController();
+            $html = $controller->showPostsAsync();
+
+            $htmlObject = new DOMDocument();
+            $htmlObject->loadHTML($html->getContent());
+            $htmlCrawler = new Crawler($htmlObject);
+
+            $this->assertEquals(200, $html->getStatusCode());
+            $this->assertEquals(1, $htmlCrawler->filter('div')->count());
+            $this->assertEquals(1, $htmlCrawler->filter('script')->count());
+        }
+
+        public function testShowAddForm(): void
+        {
+            $controller = new PostsController();
+            $html = $controller->showAddForm();
+
+            $htmlObject = new DOMDocument();
+            $htmlObject->loadHTML($html->getContent());
+            $htmlCrawler = new Crawler($htmlObject);
+
+            $this->assertEquals(200, $html->getStatusCode());
+            $this->assertEquals(1, $htmlCrawler->filter('form')->count());
+
+            // vérification de l'affichage des champs
+            $this->assertEquals(1, $htmlCrawler->filter('input[name="title"]')->count());
+            $this->assertEquals(1, $htmlCrawler->filter('textarea[name="content"]')->count());
+            $this->assertEquals(1, $htmlCrawler->filter('input[name="author"]')->count());
         }
     }

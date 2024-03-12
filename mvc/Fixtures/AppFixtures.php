@@ -28,7 +28,6 @@
             }
         }
         public function load() {
-            dump($_ENV);
             $pdo = Database::getPdo();
             $this->initTableObjects();
             foreach($this->objectSet as $object) {

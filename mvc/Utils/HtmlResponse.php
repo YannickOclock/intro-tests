@@ -4,6 +4,7 @@ namespace Mvc\Utils;
 
 class HtmlResponse extends AbstractResponse
 {
+    public string $htmlContent = '';
     private array $views = [];
     private array $data = [];
     public function __construct()
@@ -19,6 +20,11 @@ class HtmlResponse extends AbstractResponse
             include $view;
         }
         return ob_get_clean();
+    }
+
+    public function addHtmlContent($htmlContent = ''): void
+    {
+        $this->htmlContent = $htmlContent;
     }
 
     public function addView($viewPath): void
@@ -40,5 +46,6 @@ class HtmlResponse extends AbstractResponse
         foreach($this->views as $view) {
             include $view;
         }
+        echo $this->htmlContent;
     }
 }

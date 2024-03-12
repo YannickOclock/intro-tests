@@ -6,7 +6,9 @@
 
     use DI\ContainerBuilder;
     use Mvc\Controller\HomeController;
-    use Symfony\Component\Dotenv\Dotenv;
+use Mvc\Controller\PostsApiController;
+use Mvc\Controller\PostsController;
+use Symfony\Component\Dotenv\Dotenv;
 
     $container = null;
 
@@ -32,17 +34,22 @@
     ]);
     $altorouter->map('GET', '/posts', [
         'method' => 'showPosts',
-        'controller' => HomeController::class
+        'controller' => PostsController::class
     ]);
     // show posts with async await fetch
     $altorouter->map('GET', '/posts-async', [
         'method' => 'showPostsAsync',
-        'controller' => HomeController::class
+        'controller' => PostsController::class
     ]);
     $altorouter->map('GET', '/api/posts', [
         'method' => 'showApiPosts',
-        'controller' => HomeController::class
+        'controller' => PostsApiController::class
     ]);
+    $altorouter->map('GET', '/posts/add', [
+        'method' => 'showAddForm',
+        'controller' => PostsController::class
+    ]);
+
     $match = $altorouter->match();
     if ($match) {
         $controllerName = $match['target']['controller'];

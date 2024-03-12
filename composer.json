@@ -3,7 +3,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-sqlite3": "*",
-        "phpunit/phpunit": "^10.5",
+        "phpunit/phpunit": "^11",
         "symfony/dom-crawler": "^7.0",
         "symfony/panther": "^2.1",
         "symfony/css-selector": "^7.0"
@@ -22,6 +22,7 @@
         "php-di/php-di": "^7.0",
         "symfony/dotenv": "^7.0",
         "symfony/var-dumper": "^7.0",
-        "nelmio/alice": "^3.13"
+        "nelmio/alice": "^3.13",
+        "ext-xdebug": "*"
     }
 }

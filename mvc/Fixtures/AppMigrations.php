@@ -16,7 +16,8 @@
             }
         }
 
-        public function migrate() {
+        public function migrate()
+        {
             $pdo = Database::getPdo();
 
             // create table for migrations
@@ -25,14 +26,14 @@
             // read all migrations files
             $migrationsFolder = __DIR__ . '/../../migrations';
             $migrationsFiles = scandir($migrationsFolder);
-            foreach($migrationsFiles as $file) {
-                if($file === '.' || $file === '..') {
+            foreach ($migrationsFiles as $file) {
+                if ($file === '.' || $file === '..') {
                     continue;
                 }
 
                 // check if migration has already been executed
                 $result = $pdo->query("SELECT migration FROM migrations WHERE migration = '$file'");
-                if($result->fetch()) {
+                if ($result->fetch()) {
                     continue;
                 }
 
@@ -44,6 +45,11 @@
 
                 $pdo->exec($sql);
             }
-
         }
+
+        public function truncate() {
+            $pdo = Database::getPdo();
+            $pdo->exec('TRUNCATE TABLE migrations');
+        }
+
     }

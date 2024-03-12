@@ -20,13 +20,13 @@
 
         public function addError($message): void
         {
-            $this->addHeader('HTTP/2.0 500');
+            $this->setStatusCode(400);
             $this->content = array_merge([], ['error' => $message]);
         }
 
         public function addSuccess($message): void
         {
-            $this->addHeader('HTTP/2.0 200');
+            $this->setStatusCode(200);
             $this->content = array_merge($this->content, ['success' => $message]);
         }
 

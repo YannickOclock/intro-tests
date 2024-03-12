@@ -2,7 +2,7 @@
 
     namespace Mvc\Api;
 
-    use Mvc\Controller\HomeController;
+    use Mvc\Controller\PostsApiController;
     use Mvc\Models\PostModel;
     use PHPUnit\Framework\MockObject\Exception;
     use PHPUnit\Framework\TestCase;
@@ -23,10 +23,11 @@
             ]);
 
             // Test du controller avec le mock
-            $controller = new HomeController();
+            $controller = new PostsApiController();
             $json = $controller->showApiPosts($postModel);
 
             $this->assertEquals(200, $json->getStatusCode());
             $this->assertEquals(3, count($json->getContent()['posts']));
         }
+
     }
