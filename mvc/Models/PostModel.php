@@ -38,6 +38,26 @@
             return $statement->fetchAll(PDO::FETCH_CLASS, self::class);
         }
 
+        /**
+         * @throws \Exception
+         */
+        public function save(): int
+        {
+            try {
+                $pdo = Database::getPdo();
+                $properties = $this->getProperties();
+                $columns = array_keys($properties);
+                $sql = 'INSERT INTO ' . $this->getClass() . ' (' . implode(', ', $columns) . ') VALUES (:' . implode(', :', $columns) . ')';
+                $statement = $pdo->prepare($sql);
+                $statement->execute($properties);
+            } catch (\Exception $e) {
+                throw new \Exception('Erreur lors de l\'insertion d\'un post : ' . $e->getMessage());
+            }
+
+            $this->id = $pdo->lastInsertId();
+            return $this->id;
+        }
+
         public function setTitle(string $title): PostModel
         {
             $this->title = $title;

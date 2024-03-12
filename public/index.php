@@ -49,6 +49,10 @@ use Symfony\Component\Dotenv\Dotenv;
         'method' => 'showAddForm',
         'controller' => PostsController::class
     ]);
+    $altorouter->map('POST', '/posts/add', [
+        'method' => 'addPost',
+        'controller' => PostsController::class
+    ]);
 
     $match = $altorouter->match();
     if ($match) {

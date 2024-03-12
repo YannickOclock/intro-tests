@@ -1,5 +1,21 @@
 <!-- Construction d'un form pour ajouter un post -->
 
+<!-- Affiche les erreurs -->
+<?php if (!empty($errorList)) : ?>
+    <div>
+        <ul>
+            <?php foreach ($errorList as $error) : ?>
+                <li><?= $error ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
+<!-- bouton de retour -->
+<a href="/posts">Retour</a>
+
+<h1>Ajouter un post</h1>
+
 <form method="post">
     <div>
         <label for="title">Titre</label>
