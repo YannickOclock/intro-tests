@@ -1,6 +1,7 @@
 <?php
     namespace Mvc\Controller;
 
+    use Mvc\Exceptions\InvalidPostDataException;
     use Mvc\Models\PostModel;
     use Mvc\Utils\HtmlResponse;
 
@@ -28,49 +29,30 @@
 
         public function submitAddForm(): HtmlResponse
         {
-            $errorList = [];
-
             $title = $_POST['title'] ?? '';
             $content = $_POST['content'] ?? '';
             $author = $_POST['author'] ?? '';
 
-            if (empty($title)) {
-                $errorList[] = 'Le titre est obligatoire';
-            }
-            if(strlen($title) < 3 || strlen($title) > 255) {
-                $errorList[] = 'Le titre doit contenir entre 3 et 255 caractères';
-            }
+            $postModel = new PostModel();
+            $postModel->setTitle($title)
+                ->setContent($content)
+                ->setAuthor($author)
+                ->setDate(date('Y-m-d H:i:s'));
 
-            if (empty($content)) {
-                $errorList[] = 'Le contenu est obligatoire';
-            }
-            if(strlen($content) < 3) {
-                $errorList[] = 'Le contenu doit contenir au moins 3 caractères';
-            }
-
-            if (empty($author)) {
-                $errorList[] = 'L\'auteur est obligatoire';
-            }
-            if(strlen($author) < 3 || strlen($author) > 100) {
-                $errorList[] = 'L\'auteur doit contenir entre 3 et 100 caractères';
+            try {
+                $postModel->validate();
+                $postModel->save();
+            } catch (InvalidPostDataException $e) {
+                $errorList = $e->getErrors();
+            } catch (\Exception $e) {
+                $errorList[] = $e->getMessage();
             }
 
             if (empty($errorList)) {
-                $postModel = new PostModel();
-                $postModel->setTitle($title)
-                    ->setContent($content)
-                    ->setAuthor($author)
-                    ->setDate(date('Y-m-d H:i:s'));
-
-                try {
-                    $postModel->save();
-                } catch (\Exception $e) {
-                    $errorList[] = $e->getMessage();
-                }
-
                 $this->addFlashMessage('Le post a bien été ajouté');
                 return $this->showPosts($postModel);
             }
+
 
             return $this->show('posts/add', ['errorList' => $errorList], 400);
         }

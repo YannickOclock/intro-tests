@@ -38,7 +38,7 @@
 
             // Est-ce que le document HTML contient un titre h1 ? (on utilise une expression régulière)
             $htmlObject = new DOMDocument();
-            $htmlObject->loadHTML($html->getContent());
+            $htmlObject->loadHTML($html->getContent(), LIBXML_NOERROR);
             $htmlCrawler = new Crawler($htmlObject);
 
             $this->assertEquals(200, $html->getStatusCode());
@@ -64,7 +64,7 @@
             $html = $controller->showPosts($postModel);
 
             $htmlObject = new DOMDocument();
-            $htmlObject->loadHTML($html->getContent());
+            $htmlObject->loadHTML($html->getContent(), LIBXML_NOERROR);
             $htmlCrawler = new Crawler($htmlObject);
 
             $this->assertEquals(200, $html->getStatusCode());
@@ -77,7 +77,7 @@
             $html = $controller->showPostsAsync();
 
             $htmlObject = new DOMDocument();
-            $htmlObject->loadHTML($html->getContent());
+            $htmlObject->loadHTML($html->getContent(), LIBXML_NOERROR);
             $htmlCrawler = new Crawler($htmlObject);
 
             $this->assertEquals(200, $html->getStatusCode());
@@ -91,7 +91,7 @@
             $html = $controller->showAddForm();
 
             $htmlObject = new DOMDocument();
-            $htmlObject->loadHTML($html->getContent());
+            $htmlObject->loadHTML($html->getContent(), LIBXML_NOERROR);
             $htmlCrawler = new Crawler($htmlObject);
 
             $this->assertEquals(200, $html->getStatusCode());
@@ -109,11 +109,12 @@
             $html = $controller->submitAddForm();
 
             $htmlObject = new DOMDocument();
-            $htmlObject->loadHTML($html->getContent());
+            $htmlObject->loadHTML($html->getContent(), LIBXML_NOERROR);
             $htmlCrawler = new Crawler($htmlObject);
 
             $this->assertEquals(400, $html->getStatusCode());
             $this->assertEquals(1, $htmlCrawler->filter('div.alert-danger')->count());
+            $this->assertEquals(6, $htmlCrawler->filter('div.alert-danger ul li')->count());
         }
 
         public function testSubmitWithSuccess(): void
@@ -127,7 +128,7 @@
             $html = $controller->submitAddForm();
 
             $htmlObject = new DOMDocument();
-            $htmlObject->loadHTML($html->getContent());
+            $htmlObject->loadHTML($html->getContent(), LIBXML_NOERROR);
             $htmlCrawler = new Crawler($htmlObject);
 
             $this->assertEquals(200, $html->getStatusCode());

@@ -2,6 +2,7 @@
 
 namespace Mvc\Models;
 
+use Mvc\Exceptions\InvalidPostDataException;
 use Mvc\Fixtures\AppFixtures;
 use PHPUnit\Framework\TestCase;
 
@@ -53,11 +54,14 @@ class PostModelTest extends TestCase
      */
     public function testFailedSave(): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(InvalidPostDataException::class);
 
         $postModel = new PostModel();
+        $postModel->setContent('');
+        $postModel->setAuthor('');
         $postModel->setTitle('Titre 6');
         $postModel->setDate(date('Y-m-d H:i:s'));
+        $postModel->validate();
         $postModel->save();
     }
 }

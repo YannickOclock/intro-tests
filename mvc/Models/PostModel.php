@@ -1,8 +1,11 @@
 <?php
     namespace Mvc\Models;
 
+    use Assert\LazyAssertionException;
+    use Mvc\Exceptions\InvalidPostDataException;
     use Mvc\Utils\Database;
     use PDO;
+    use function Assert\lazy;
 
     class PostModel
     {
@@ -30,6 +33,38 @@
             ];
         }
 
+        /**
+         * @throws InvalidPostDataException
+         */
+        public function validate(): void
+        {
+            try {
+                // validate with beberlei/assert
+                lazy()
+                    ->tryAll()
+                    ->that($this->title, 'title')
+                        ->string("Le titre doit être une chaine de caractères")
+                        ->notEmpty("Le titre ne doit pas être vide")
+                        ->minLength(3, "Le titre doit contenir au moins 3 caractères")
+                        ->maxLength(255, "Le titre doit contenir au maximum 255 caractères")
+                    ->that($this->content, 'content')
+                        ->string("Le contenu doit être une chaine de caractères")
+                        ->notEmpty("Le contenu ne doit pas être vide")
+                        ->minLength(3, "Le contenu doit contenir au moins 3 caractères")
+                    ->that($this->author, 'author')
+                        ->string("L'auteur doit être une chaine de caractères")
+                        ->notEmpty("L'auteur ne doit pas être vide")
+                        ->minLength(3, "L'auteur doit contenir au moins 3 caractères")
+                        ->maxLength(100, "L'auteur doit contenir au maximum 100 caractères")
+                    ->that($this->date, 'date')
+                        ->string("La date doit être une chaine de caractères")
+                        ->notEmpty("La date ne doit pas être vide")
+                    ->verifyNow();
+            } catch (LazyAssertionException $e) {
+                throw InvalidPostDataException::withErrors($e->getErrorExceptions());
+            }
+        }
+
         public function findAll(): array
         {
             $pdo = Database::getPdo();
@@ -43,10 +78,6 @@
          */
         public function save(): int
         {
-            if(empty($this->title) || empty($this->content) || empty($this->author) || empty($this->date)) {
-                throw new \Exception('Tous les champs sont obligatoires');
-            }
-
             try {
                 $pdo = Database::getPdo();
                 $sql = 'INSERT INTO ' . $this->getClass() . '(`title`, `content`, `author`, `date`) VALUES (:title, :content, :author, :date)';

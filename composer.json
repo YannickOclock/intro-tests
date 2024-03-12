@@ -23,6 +23,8 @@
         "symfony/dotenv": "^7.0",
         "symfony/var-dumper": "^7.0",
         "nelmio/alice": "^3.13",
-        "ext-xdebug": "*"
+        "ext-xdebug": "*",
+        "ext-libxml": "*",
+        "beberlei/assert": "^3.3"
     }
 }

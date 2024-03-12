@@ -4,8 +4,10 @@
 <?php if (!empty($errorList)) : ?>
     <div class="alert alert-danger">
         <ul>
-            <?php foreach ($errorList as $error) : ?>
-                <li><?= $error ?></li>
+            <?php foreach ($errorList as $errorContext) : ?>
+                <?php foreach ($errorContext as $error) : ?>
+                    <li><?= $error ?></li>
+                <?php endforeach; ?>
             <?php endforeach; ?>
         </ul>
     </div>

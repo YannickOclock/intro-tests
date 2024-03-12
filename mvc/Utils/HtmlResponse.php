@@ -14,6 +14,11 @@ class HtmlResponse extends AbstractResponse
 
     public function getContent(): string
     {
+        // TODO : $htmlObject->loadHTML($html->getContent(), LIBXML_NOERROR) =>
+        // TODO : il faudrait mettre des str_replace pour les balises sémantiques (article, header, etc.),
+        // TODO : puis enlever le LIBXML_NOERROR
+        // TODO : stackoverflow.com/questions/6090667/php-domdocument-errors-warnings-on-html5-tags
+
         ob_start();
         extract($this->data, EXTR_SKIP);
         foreach ($this->views as $view) {
