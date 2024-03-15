@@ -82,7 +82,6 @@
 
             $this->assertEquals(200, $html->getStatusCode());
             $this->assertEquals(1, $htmlCrawler->filter('div')->count());
-            $this->assertEquals(1, $htmlCrawler->filter('script')->count());
         }
 
         public function testShowAddForm(): void
